@@ -1,0 +1,7 @@
+{
+  "name": "large-lists",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
