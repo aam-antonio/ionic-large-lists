@@ -13,7 +13,7 @@
         <ion-icon [name]="group.show ? 'md-arrow-dropup' : 'md-arrow-dropdown'" slot="end"></ion-icon>
       </ion-item>
 
-      <ion-list *ngIf="group.show">
+      <ion-list *ngIf="group.show" [@collapse]>
         <div *ngFor="let subgroup of group.subgroups">
           <ion-item [lines]="subgroup.show ? 'none' : 'full'" (click)="subgroup.show = !subgroup.show" color="secondary">
             <h2 slot="start">{{subgroup.id}}.-</h2>

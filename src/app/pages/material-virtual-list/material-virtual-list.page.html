@@ -5,33 +5,31 @@
 </ion-header>
 
 <ion-content padding>
-  <mat-accordion>
-    <mat-expansion-panel *ngFor="let group of items">
-      <mat-expansion-panel-header>
-        <ion-item>
-          <h2 slot="start">{{group.id}}</h2>
-          <ion-label>{{group.title}}</ion-label>
-        </ion-item>
-      </mat-expansion-panel-header>
+  <div *ngFor="let group of items">
+    <ion-item [lines]="group.show ? 'none' : 'full'" (click)="group.show = !group.show" color="primary">
+      <h2 slot="start">{{group.id}}</h2>
+      <ion-label>{{group.title}}</ion-label>
+      <ion-icon [name]="group.show ? 'md-arrow-dropup' : 'md-arrow-dropdown'" slot="end"></ion-icon>
+    </ion-item>
 
-      <ion-list>
-        <div *ngFor="let subgroup of group.subgroups">
-          <ion-item [lines]="subgroup.show ? 'none' : 'full'" (click)="subgroup.show = !subgroup.show" color="secondary">
-            <h2 slot="start">{{subgroup.id}}</h2>
+    <mat-accordion *ngIf="group.show">
+      <mat-expansion-panel *ngFor="let subgroup of group.subgroups">
+        <mat-expansion-panel-header>
+          <ion-item>
+            <h2 slot="start">{{subgroup.id}}.-</h2>
             <ion-label>{{subgroup.title}}</ion-label>
-            <ion-icon [name]="subgroup.show ? 'md-arrow-dropup' : 'md-arrow-dropdown'" slot="end"></ion-icon>
           </ion-item>
+        </mat-expansion-panel-header>
 
-          <ion-list *ngIf="subgroup.show">
-            <ion-virtual-scroll [items]="subgroup.items">
-              <ion-item *virtualItem="let item" color="tertiary">
-                <h2 slot="start">{{item.id}}.-</h2>
-                <ion-label>{{item.title}}</ion-label>
-              </ion-item>
-            </ion-virtual-scroll>
-          </ion-list>
-        </div>
-      </ion-list>
-    </mat-expansion-panel>
-  </mat-accordion>
+        <ion-list>
+          <ion-virtual-scroll [items]="subgroup.items">
+            <ion-item *virtualItem="let item" color="tertiary">
+              <h2 slot="start">{{item.id}}.-</h2>
+              <ion-label>{{item.title}}</ion-label>
+            </ion-item>
+          </ion-virtual-scroll>
+        </ion-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </ion-content>
